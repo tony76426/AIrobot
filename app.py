@@ -19,8 +19,7 @@ def generate():
     try:
         data = request.get_json()
         messages = data.get("messages", [])
-        model = data.get("model", "gpt-3.5-turbo")
-        temperature = data.get("temperature", 0.5)
+        model = "gpt-6-luna"
 
         if not messages or not isinstance(messages, list):
             return jsonify({"error": "Invalid or missing 'messages'"}), 400
@@ -28,7 +27,7 @@ def generate():
         response = client.chat.completions.create(
             model=model,
             messages=messages,
-            temperature=temperature,
+            reasoning_effort="none",
         )
         return jsonify({
             "choices": [{
